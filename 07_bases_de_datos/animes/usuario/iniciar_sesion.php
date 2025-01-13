@@ -20,10 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contrasena = $_POST["contrasena"];
 
     // Preparar la sentencia SELECT
-    $stmt = $_conexion->prepare("SELECT * FROM usuarios WHERE usuario = ?");
-    $stmt->bind_param("s", $usuario);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+    $sql = $_conexion->prepare("SELECT * FROM usuarios WHERE usuario = ?");
+    $sql->bind_param("s", $usuario);
+    $sql->execute();
+    $resultado = $sql->get_result();
     
     if ($resultado->num_rows == 0) {
         echo "<h2>El usuario $usuario no existe</h2>";

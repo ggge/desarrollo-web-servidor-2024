@@ -41,9 +41,30 @@
                 $sql -> execute();
             }
 
-            $sql = "SELECT * FROM animes";
+            /* $sql = "SELECT * FROM animes";
             $resultado = $_conexion -> query($sql);
-            $conexion -> close();
+            $conexion -> close(); */
+
+        // 1. Preparación
+        $sql = $_conexion->prepare("SELECT * FROM animes");
+
+        // 2. Ejecución
+        $stmt->execute();
+
+        // 3. Obtener resultados
+        $resultado = $stmt->get_result();
+        $animes = [];
+
+        while ($row = $resultado->fetch_assoc()) {
+        $animes[] = $row;
+        }
+
+        // 4. Cerrar la sentencia
+        $stmt->close();
+
+    // Cerrar la conexión
+    $_conexion->close();
+
             /**
              * Aplicamos la función query a la conexión, donde se ejecuta la sentencia SQL hecha
              * 

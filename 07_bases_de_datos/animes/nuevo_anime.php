@@ -66,9 +66,28 @@
             $_conexion -> close();
         }
 
-        $sql = "SELECT * FROM estudios ORDER BY nombre_estudio";
+        /* $sql = "SELECT * FROM estudios ORDER BY nombre_estudio";
         $resultado = $_conexion -> query($sql);
+        $estudios = []; */
+        // 1. Preparar la sentencia
+        $sql = $_conexion->prepare("SELECT * FROM estudios ORDER BY nombre_estudio");
+
+        // 2. Enlazar los parámetros (en este caso no hay parámetros a enlazar)
+
+        // 3. Ejecutar la sentencia
+        $sql->execute();
+
+        // 4. Obtener resultados
+        $resultado = $sql->get_result();
         $estudios = [];
+        while ($row = $resultado->fetch_assoc()) {
+            $estudios[] = $row;
+        }
+
+// 5. Cerrar la sentencia
+$stmt->close();
+
+
 
         while($fila = $resultado -> fetch_assoc()) {
             array_push($estudios, $fila["nombre_estudio"]);
