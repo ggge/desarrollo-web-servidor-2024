@@ -1,0 +1,8 @@
+table {
+    border: 4px solid purple;
+    /*border-collapse: collapse; esto junta los dos bordes*/
+}
+
+th, td {
+    border: 4px solid palevioletred;
+}
