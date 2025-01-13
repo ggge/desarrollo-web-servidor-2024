@@ -16,14 +16,35 @@
     <div class="container">
         <h1>Tabla de consolas</h1>
         <?php
-            $sql = "SELECT * FROM consolas";
-            $resultado = $_conexion -> query($sql);
+/*             $sql = "SELECT * FROM consolas";
+            $resultado = $_conexion -> query($sql); */
+
+            // 1. Preparar la sentencia
+        $sql = $_conexion->prepare("SELECT * FROM consolas");
+
+    // 2. Enlazar los parámetros (en este caso no hay parámetros a enlazar)
+
+    // 3. Ejecutar la sentencia
+        $sql->execute();
+
+    // 4. Obtener resultados
+    $resultado = $sql->get_result();
+    $consolas = [];
+    while ($row = $resultado->fetch_assoc()) {
+        $consolas[] = $row;
+    }
+
+    // 5. Cerrar la sentencia
+    $sql->close();
+
             /**
              * Aplicamos la función query a la conexión, donde se ejecuta la sentencia SQL hecha
              * 
              * El resultado se almacena $resultado, que es un objeto con una estructura parecida
              * a los arrays
              */
+
+
         ?>
         <table class="table table-striped table-hover">
             <thead class="table-dark">
